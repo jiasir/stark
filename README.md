@@ -1,2 +1,2 @@
 # stark
-Stark is a transparent pass through GFW tool
+Stark is a transparent pass through GFW proxy server
