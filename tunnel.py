@@ -43,7 +43,7 @@ tunnelPid = []
 
 
 def startTunnel(host, port):
-    commands = 'ssh -qTfnN -D {0} {1}'.format(port, host)
+    commands = 'ssh -qTfnN -D 0.0.0.0:{0} {1}'.format(port, host)
     cmd = subprocess.Popen(args=commands, shell=True)
     cmd.wait()
     pid = cmd.pid + 1
