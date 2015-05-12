@@ -39,22 +39,37 @@ ports = configFile.get('TUNNEL', 'ports')
 
 portsRange = str(ports).split(',')
 
+tunnelPid = []
+
 
 def startTunnel(host, port):
-    commands = ['ssh', '-qTfnN', '-D', port, host]
-    subprocess.call(commands)
-    logger.info('Create tunnel [{0}] on local port [{1}]'.format(host, port))
+    commands = 'ssh -qTfnN -D {0} {1}'.format(port, host)
+    cmd = subprocess.Popen(args=commands, shell=True)
+    cmd.wait()
+    pid = cmd.pid + 1
+    tunnelPid.append(pid)
+    logger.info('Create tunnel [{0}] on local port [{1}], the pid is [{2}]'.format(host, port, pid))
 
 
 hosts = str(hosts).split(',')
 ports = range(int(portsRange[0]), int(portsRange[1]) + 1)
-portsIndex = 0
-for h in hosts:
-    host = str(h).strip()
-    port = str(ports[portsIndex]).strip()
 
-    startTunnel(host, port)
-    portsIndex += 1
+
+def initial_tunnel():
+    portsIndex = 0
+    for h in hosts:
+        host = str(h).strip()
+        port = str(ports[portsIndex]).strip()
+
+        startTunnel(host, port)
+        portsIndex += 1
+
+
+if __name__ == '__main__':
+    initial_tunnel()
+
+
+
 
 
 
