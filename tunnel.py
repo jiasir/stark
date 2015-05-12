@@ -46,7 +46,7 @@ def startTunnel(host, port):
     commands = 'ssh -qTfnN -D 0.0.0.0:{0} {1}'.format(port, host)
     cmd = subprocess.Popen(args=commands, shell=True)
     cmd.wait()
-    pid = cmd.pid + 1
+    pid = int(cmd.pid) + 1
     tunnelPid.append(pid)
     logger.info('Create tunnel [{0}] on local port [{1}], the pid is [{2}]'.format(host, port, pid))
 
