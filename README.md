@@ -15,6 +15,6 @@ Using Stark server(tunnel backend current only) to build a proxy server
         
 * Enable `ip_forward`
 
-        sudo echo 1 > /proc/sys/net/ipv4/ip_forward
+        sudo sysctl -w net.ipv4.ip_forward=1
         
         
